@@ -1,0 +1,78 @@
+
+Run cpplint
+
+./tema3.c:9:  Lines should be <= 120 characters long  [whitespace/line_length] [2]
+./tema3.c:12:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./tema3.c:42:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./tema3.c:66:  Lines should be <= 120 characters long  [whitespace/line_length] [2]
+./tema3.c:73:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./tema3.c:78:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
+./tema3.c:99:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
+./tema3.c:104:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./tema3.c:107:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./tema3.c:107:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
+./tema3.c:134:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+Done processing ./bmp_header.h
+Done processing ./tema3.c
+Total errors found: 11
+
+Run clang-tidy-12
+
+27 warnings generated.
+/home/student/Desktop/Tema3---PC/tema3.c:10:9: error: variable 'i' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, padding;
+        ^
+          = 0
+/home/student/Desktop/Tema3---PC/tema3.c:10:12: error: variable 'padding' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, padding;
+           ^
+                   = 0
+/home/student/Desktop/Tema3---PC/tema3.c:40:9: error: variable 'i' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, padding;
+        ^
+          = 0
+/home/student/Desktop/Tema3---PC/tema3.c:40:12: error: variable 'padding' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, padding;
+           ^
+                   = 0
+/home/student/Desktop/Tema3---PC/tema3.c:69:17: error: variable 'localBmpPixelMatrix' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    bmp_pixel **localBmpPixelMatrix;
+                ^
+                                    = NULL
+/home/student/Desktop/Tema3---PC/tema3.c:70:9: error: variable 'i' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, j, padding;
+        ^
+          = 0
+/home/student/Desktop/Tema3---PC/tema3.c:70:12: error: variable 'j' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, j, padding;
+           ^
+             = 0
+/home/student/Desktop/Tema3---PC/tema3.c:70:15: error: variable 'padding' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, j, padding;
+              ^
+                      = 0
+/home/student/Desktop/Tema3---PC/tema3.c:91:17: error: variable 'bmpPixelMatrix' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    bmp_pixel **bmpPixelMatrix;
+                ^
+                               = NULL
+/home/student/Desktop/Tema3---PC/tema3.c:94:18: error: variable 'x' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    unsigned int x, y, i;
+                 ^
+                   = 0
+/home/student/Desktop/Tema3---PC/tema3.c:94:21: error: variable 'y' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    unsigned int x, y, i;
+                    ^
+                      = 0
+/home/student/Desktop/Tema3---PC/tema3.c:94:24: error: variable 'i' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    unsigned int x, y, i;
+                       ^
+                         = 0
+/home/student/Desktop/Tema3---PC/tema3.c:122:75: error: narrowing conversion from 'unsigned int' to signed type 'int' is implementation-defined [cppcoreguidelines-narrowing-conversions,-warnings-as-errors]
+            insert(&bmpFileHeader, &bmpInfoHeader, &bmpPixelMatrix, path, x, y);
+                                                                          ^
+/home/student/Desktop/Tema3---PC/tema3.c:122:78: error: narrowing conversion from 'unsigned int' to signed type 'int' is implementation-defined [cppcoreguidelines-narrowing-conversions,-warnings-as-errors]
+            insert(&bmpFileHeader, &bmpInfoHeader, &bmpPixelMatrix, path, x, y);
+                                                                             ^
+Suppressed 13 warnings (13 in non-user code).
+Use -header-filter=.* to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
+14 warnings treated as errors
