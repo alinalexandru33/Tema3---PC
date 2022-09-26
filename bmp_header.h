@@ -4,6 +4,8 @@
 */
 #pragma pack(1)
 
+#define MAX_LENGTH 1000
+
 typedef struct {
     unsigned char  fileMarker1; /* 'B' */
     unsigned char  fileMarker2; /* 'M' */

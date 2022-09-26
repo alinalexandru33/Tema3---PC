@@ -3,8 +3,6 @@
 #include <string.h>
 #include "bmp_header.h"
 
-#define MAX_LENGTH 100
-
 /* Function used to read a BMP image from a file */
 void readImage(bmp_fileheader **bmpFileHeader, bmp_infoheader **bmpInfoHeader, bmp_pixel ***bmpPixelMatrix, char *path) {
     int i, padding;
@@ -67,12 +65,10 @@ void insert(bmp_fileheader **bmpFileHeader, bmp_infoheader **bmpInfoHeader, bmp_
     bmp_fileheader *localBmpFileHeader = malloc(sizeof(bmp_fileheader));
     bmp_infoheader *localBmpInfoHeader = malloc(sizeof(bmp_infoheader));
     bmp_pixel **localBmpPixelMatrix;
-    int i, j, padding;
+    int i, j;
 
     readImage(&localBmpFileHeader, &localBmpInfoHeader, &localBmpPixelMatrix, path);
     
-    padding = (4 - (localBmpInfoHeader->width % 4)) % 4;
-
     for (i = 0; i < localBmpInfoHeader->height; i++) {
         for (j = 0; j < localBmpInfoHeader->width; j++) {
 
@@ -82,6 +78,15 @@ void insert(bmp_fileheader **bmpFileHeader, bmp_infoheader **bmpInfoHeader, bmp_
             }
         }
     }
+
+    /* Free the memory */
+    for (i = 0; i < localBmpInfoHeader->height; i++) {
+        free(localBmpPixelMatrix[i]);
+    }
+    free(localBmpPixelMatrix);
+    free(localBmpInfoHeader);
+    free(localBmpFileHeader);
+    
     return;
 }
 
@@ -106,8 +111,9 @@ int main(int argc, char const *argv[]) {
         } else if (!strcmp(command, "save")) {
             
             /* Check if the image is loaded */
-            if (bmpFileHeader->fileMarker1 != 'B') {
-                continue;
+            if (bmpFileHeader->fileMarker1 != 'B' || bmpFileHeader->fileMarker2 != 'M') {
+                perror("Nothing is stored");
+                exit(-1);
             }
 
             scanf("%s", path);
@@ -127,10 +133,15 @@ int main(int argc, char const *argv[]) {
         scanf("%s", command);
     }
 
+    /* Free the memory */
     for (i = 0; i < bmpInfoHeader->height; i++) {
         free(bmpPixelMatrix[i]);
     }
     free(bmpPixelMatrix);
+    free(bmpInfoHeader);
+    free(bmpFileHeader);
+    free(command);
+    free(path);
     
     return 0;
 }
