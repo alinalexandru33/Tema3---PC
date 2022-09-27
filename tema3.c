@@ -183,7 +183,7 @@ void drawX(bmp_infoheader *bmpInfoHeader, bmp_pixel ***bmpPixelMatrix, bmp_pixel
 /* Function used to draw a line */
 void drawLine(bmp_infoheader *bmpInfoHeader, bmp_pixel ***bmpPixelMatrix, bmp_pixel *drawColor, int lineWidth, 
         int x1, int y1, int x2, int y2) {
-    int i, j, k, y, x, aux;
+    int aux;
 
     /* Oy interval is greater */
     if (max(abs(x2 - x1), abs(y2 - y1))) {
@@ -205,33 +205,6 @@ void drawLine(bmp_infoheader *bmpInfoHeader, bmp_pixel ***bmpPixelMatrix, bmp_pi
     } else {
         drawX(bmpInfoHeader, bmpPixelMatrix, drawColor, lineWidth, x1, y1, x2, y2);   
     }
-
-    /* Draw the initial first point */
-    x = x1;
-    y = y1;
-    for (i = x - (lineWidth / 2); i <= x + (lineWidth / 2); i++) {
-        for (j = y - (lineWidth / 2); j <= y + (lineWidth / 2); j++) {
-
-            /* Check if out-of-bound */
-            if (i >= 0 && j >= 0 && i < bmpInfoHeader->height && j < bmpInfoHeader->width) {
-                (*bmpPixelMatrix)[i][j] = *drawColor;
-            }
-        }
-    }
-
-    /* Draw the initial second point */
-    x = x2;
-    y = y2;
-    for (i = x - (lineWidth / 2); i <= x + (lineWidth / 2); i++) {
-        for (j = y - (lineWidth / 2); j <= y + (lineWidth / 2); j++) {
-
-            /* Check if out-of-bound */
-            if (i >= 0 && j >= 0 && i < bmpInfoHeader->height && j < bmpInfoHeader->width) {
-                (*bmpPixelMatrix)[i][j] = *drawColor;
-            }
-        }
-    }
-
 
     return;
 }
