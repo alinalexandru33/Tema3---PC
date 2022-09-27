@@ -1,75 +1,193 @@
 
 Run cpplint
 
-./tema3.c:7:  Lines should be <= 120 characters long  [whitespace/line_length] [2]
-./tema3.c:10:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-./tema3.c:40:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-./tema3.c:64:  Lines should be <= 120 characters long  [whitespace/line_length] [2]
-./tema3.c:71:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-./tema3.c:74:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-./tema3.c:89:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-./tema3.c:104:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-./tema3.c:109:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-./tema3.c:112:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
-./tema3.c:112:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
-./tema3.c:145:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./tema3.c:8:  Lines should be <= 120 characters long  [whitespace/line_length] [2]
+./tema3.c:11:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./tema3.c:41:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./tema3.c:65:  Lines should be <= 120 characters long  [whitespace/line_length] [2]
+./tema3.c:72:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./tema3.c:75:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
+./tema3.c:90:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./tema3.c:95:  Extra space before ( in function call  [whitespace/parens] [4]
+./tema3.c:114:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./tema3.c:129:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./tema3.c:133:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
+./tema3.c:149:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./tema3.c:168:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
+./tema3.c:184:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./tema3.c:190:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
+./tema3.c:203:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./tema3.c:206:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./tema3.c:214:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
+./tema3.c:227:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
+./tema3.c:250:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
+./tema3.c:255:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./tema3.c:258:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./tema3.c:258:  Redundant blank line at the start of a code block should be deleted.  [whitespace/blank_line] [2]
+./tema3.c:275:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./tema3.c:290:  Missing space before ( in if(  [whitespace/parens] [5]
+./tema3.c:308:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
+./tema3.c:311:  Lines should be <= 120 characters long  [whitespace/line_length] [2]
+./tema3.c:341:  Line ends in whitespace.  Consider deleting these extra spaces.  [whitespace/end_of_line] [4]
 Done processing ./bmp_header.h
 Done processing ./tema3.c
-Total errors found: 12
+Total errors found: 28
 
 Run clang-tidy-12
 
-26 warnings generated.
-/home/student/Desktop/Tema3---PC/tema3.c:8:9: error: variable 'i' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+52 warnings generated.
+/home/student/Desktop/Tema3---PC/tema3.c:9:9: error: variable 'i' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
     int i, padding;
         ^
           = 0
-/home/student/Desktop/Tema3---PC/tema3.c:8:12: error: variable 'padding' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+/home/student/Desktop/Tema3---PC/tema3.c:9:12: error: variable 'padding' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
     int i, padding;
            ^
                    = 0
-/home/student/Desktop/Tema3---PC/tema3.c:38:9: error: variable 'i' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+/home/student/Desktop/Tema3---PC/tema3.c:39:9: error: variable 'i' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
     int i, padding;
         ^
           = 0
-/home/student/Desktop/Tema3---PC/tema3.c:38:12: error: variable 'padding' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+/home/student/Desktop/Tema3---PC/tema3.c:39:12: error: variable 'padding' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
     int i, padding;
            ^
                    = 0
-/home/student/Desktop/Tema3---PC/tema3.c:67:17: error: variable 'localBmpPixelMatrix' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+/home/student/Desktop/Tema3---PC/tema3.c:68:17: error: variable 'localBmpPixelMatrix' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
     bmp_pixel **localBmpPixelMatrix;
                 ^
                                     = NULL
-/home/student/Desktop/Tema3---PC/tema3.c:68:9: error: variable 'i' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+/home/student/Desktop/Tema3---PC/tema3.c:69:9: error: variable 'i' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
     int i, j;
         ^
           = 0
-/home/student/Desktop/Tema3---PC/tema3.c:68:12: error: variable 'j' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+/home/student/Desktop/Tema3---PC/tema3.c:69:12: error: variable 'j' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
     int i, j;
            ^
              = 0
-/home/student/Desktop/Tema3---PC/tema3.c:96:17: error: variable 'bmpPixelMatrix' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
-    bmp_pixel **bmpPixelMatrix;
-                ^
-                               = NULL
-/home/student/Desktop/Tema3---PC/tema3.c:99:18: error: variable 'x' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
-    unsigned int x, y, i;
+/home/student/Desktop/Tema3---PC/tema3.c:116:9: error: variable 'i' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, j, x, y, start, end;
+        ^
+          = 0
+/home/student/Desktop/Tema3---PC/tema3.c:116:12: error: variable 'j' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, j, x, y, start, end;
+           ^
+             = 0
+/home/student/Desktop/Tema3---PC/tema3.c:116:15: error: variable 'x' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, j, x, y, start, end;
+              ^
+                = 0
+/home/student/Desktop/Tema3---PC/tema3.c:116:18: error: variable 'y' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, j, x, y, start, end;
                  ^
                    = 0
-/home/student/Desktop/Tema3---PC/tema3.c:99:21: error: variable 'y' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
-    unsigned int x, y, i;
+/home/student/Desktop/Tema3---PC/tema3.c:116:21: error: variable 'start' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, j, x, y, start, end;
+                    ^
+                          = 0
+/home/student/Desktop/Tema3---PC/tema3.c:116:28: error: variable 'end' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, j, x, y, start, end;
+                           ^
+                               = 0
+/home/student/Desktop/Tema3---PC/tema3.c:151:9: error: variable 'i' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, j, x, y, start, end;
+        ^
+          = 0
+/home/student/Desktop/Tema3---PC/tema3.c:151:12: error: variable 'j' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, j, x, y, start, end;
+           ^
+             = 0
+/home/student/Desktop/Tema3---PC/tema3.c:151:15: error: variable 'x' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, j, x, y, start, end;
+              ^
+                = 0
+/home/student/Desktop/Tema3---PC/tema3.c:151:18: error: variable 'y' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, j, x, y, start, end;
+                 ^
+                   = 0
+/home/student/Desktop/Tema3---PC/tema3.c:151:21: error: variable 'start' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, j, x, y, start, end;
+                    ^
+                          = 0
+/home/student/Desktop/Tema3---PC/tema3.c:151:28: error: variable 'end' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, j, x, y, start, end;
+                           ^
+                               = 0
+/home/student/Desktop/Tema3---PC/tema3.c:186:9: error: variable 'i' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, j, k, y, x, aux;
+        ^
+          = 0
+/home/student/Desktop/Tema3---PC/tema3.c:186:12: error: variable 'j' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, j, k, y, x, aux;
+           ^
+             = 0
+/home/student/Desktop/Tema3---PC/tema3.c:186:15: error: variable 'k' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, j, k, y, x, aux;
+              ^
+                = 0
+/home/student/Desktop/Tema3---PC/tema3.c:186:18: error: variable 'y' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, j, k, y, x, aux;
+                 ^
+                   = 0
+/home/student/Desktop/Tema3---PC/tema3.c:186:21: error: variable 'x' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, j, k, y, x, aux;
                     ^
                       = 0
-/home/student/Desktop/Tema3---PC/tema3.c:99:24: error: variable 'i' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
-    unsigned int x, y, i;
+/home/student/Desktop/Tema3---PC/tema3.c:186:24: error: variable 'aux' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int i, j, k, y, x, aux;
                        ^
-                         = 0
-/home/student/Desktop/Tema3---PC/tema3.c:128:75: error: narrowing conversion from 'unsigned int' to signed type 'int' is implementation-defined [cppcoreguidelines-narrowing-conversions,-warnings-as-errors]
-            insert(&bmpFileHeader, &bmpInfoHeader, &bmpPixelMatrix, path, x, y);
-                                                                          ^
-/home/student/Desktop/Tema3---PC/tema3.c:128:78: error: narrowing conversion from 'unsigned int' to signed type 'int' is implementation-defined [cppcoreguidelines-narrowing-conversions,-warnings-as-errors]
-            insert(&bmpFileHeader, &bmpInfoHeader, &bmpPixelMatrix, path, x, y);
-                                                                             ^
-Suppressed 13 warnings (13 in non-user code).
+                           = 0
+/home/student/Desktop/Tema3---PC/tema3.c:242:17: error: variable 'bmpPixelMatrix' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    bmp_pixel **bmpPixelMatrix, *drawColor = calloc(1, sizeof(bmp_pixel));
+                ^
+                               = NULL
+/home/student/Desktop/Tema3---PC/tema3.c:245:24: error: variable 'x1' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int lineWidth = 1, x1, y1, x2, y2, x3, y3, height, width, R, G, B, i;
+                       ^
+                          = 0
+/home/student/Desktop/Tema3---PC/tema3.c:245:28: error: variable 'y1' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int lineWidth = 1, x1, y1, x2, y2, x3, y3, height, width, R, G, B, i;
+                           ^
+                              = 0
+/home/student/Desktop/Tema3---PC/tema3.c:245:32: error: variable 'x2' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int lineWidth = 1, x1, y1, x2, y2, x3, y3, height, width, R, G, B, i;
+                               ^
+                                  = 0
+/home/student/Desktop/Tema3---PC/tema3.c:245:36: error: variable 'y2' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int lineWidth = 1, x1, y1, x2, y2, x3, y3, height, width, R, G, B, i;
+                                   ^
+                                      = 0
+/home/student/Desktop/Tema3---PC/tema3.c:245:40: error: variable 'x3' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int lineWidth = 1, x1, y1, x2, y2, x3, y3, height, width, R, G, B, i;
+                                       ^
+                                          = 0
+/home/student/Desktop/Tema3---PC/tema3.c:245:44: error: variable 'y3' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int lineWidth = 1, x1, y1, x2, y2, x3, y3, height, width, R, G, B, i;
+                                           ^
+                                              = 0
+/home/student/Desktop/Tema3---PC/tema3.c:245:48: error: variable 'height' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int lineWidth = 1, x1, y1, x2, y2, x3, y3, height, width, R, G, B, i;
+                                               ^
+                                                      = 0
+/home/student/Desktop/Tema3---PC/tema3.c:245:56: error: variable 'width' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int lineWidth = 1, x1, y1, x2, y2, x3, y3, height, width, R, G, B, i;
+                                                       ^
+                                                             = 0
+/home/student/Desktop/Tema3---PC/tema3.c:245:63: error: variable 'R' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int lineWidth = 1, x1, y1, x2, y2, x3, y3, height, width, R, G, B, i;
+                                                              ^
+                                                                = 0
+/home/student/Desktop/Tema3---PC/tema3.c:245:66: error: variable 'G' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int lineWidth = 1, x1, y1, x2, y2, x3, y3, height, width, R, G, B, i;
+                                                                 ^
+                                                                   = 0
+/home/student/Desktop/Tema3---PC/tema3.c:245:69: error: variable 'B' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int lineWidth = 1, x1, y1, x2, y2, x3, y3, height, width, R, G, B, i;
+                                                                    ^
+                                                                      = 0
+/home/student/Desktop/Tema3---PC/tema3.c:245:72: error: variable 'i' is not initialized [cppcoreguidelines-init-variables,-warnings-as-errors]
+    int lineWidth = 1, x1, y1, x2, y2, x3, y3, height, width, R, G, B, i;
+                                                                       ^
+                                                                         = 0
+Suppressed 14 warnings (14 in non-user code).
 Use -header-filter=.* to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
-13 warnings treated as errors
+38 warnings treated as errors

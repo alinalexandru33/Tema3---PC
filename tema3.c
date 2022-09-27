@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "bmp_header.h"
 
 /* Function used to read a BMP image from a file */
@@ -90,13 +91,158 @@ void insert(bmp_fileheader **bmpFileHeader, bmp_infoheader **bmpInfoHeader, bmp_
     return;
 }
 
+/* Function to decide which interval is greater */
+int max (int x, int y) {
+    if (x > y) {
+        return 0;
+    }
+
+    return 1;
+}
+
+/* Translation function that returns y */
+int translateLineY(int xA, int xB, int yA, int yB, int x) {
+    return (((yB - yA) * (x - xA)) / (xB - xA)) + yA;
+}
+
+/* Translation function that returns x */
+int translateLineX(int xA, int xB, int yA, int yB, int y) {
+    return (((y - yA) * (xB - xA)) / (yB - yA)) + xA;
+}
+
+/* Function used to draw when Oy interval is greater */
+void drawY(bmp_infoheader *bmpInfoHeader, bmp_pixel ***bmpPixelMatrix, bmp_pixel *drawColor, int lineWidth, 
+        int x1, int y1, int x2, int y2) {
+    int i, j, x, y, start, end;
+
+    if (y2 >= y1) {
+        start = y1;
+        end = y2;
+    } else {
+        start = y2;
+        end = y1;
+    }
+
+    for (y = start; y <= end; y++) {
+        x = translateLineX(x1, x2, y1, y2, y);
+
+        /* Draw the adjacent pixels */ 
+        if (lineWidth > 1) {
+            for (i = x - lineWidth / 2; i <= x + lineWidth / 2; i++) {
+                for (j = y - lineWidth / 2; j <= y + lineWidth / 2; j++) {
+
+                    /* Check if out-of-bound */
+                    if (i >= 0 && j >= 0 && i < bmpInfoHeader->height && j < bmpInfoHeader->width) {
+                        (*bmpPixelMatrix)[i][j] = *drawColor;
+                    }
+                }
+            }
+        } else {
+            (*bmpPixelMatrix)[x][y] = *drawColor;
+        }
+    }
+
+    return;
+}
+
+/* Function used to draw when Ox interval is greater */
+void drawX(bmp_infoheader *bmpInfoHeader, bmp_pixel ***bmpPixelMatrix, bmp_pixel *drawColor, int lineWidth, 
+        int x1, int y1, int x2, int y2) {
+    int i, j, x, y, start, end;
+
+    if (x2 >= x1) {
+        start = x1;
+        end = x2;
+    } else {
+        start = x2;
+        end = x1;
+    }
+
+    for (x = start; x <= end; x++) {
+        y = translateLineY(x1, x2, y1, y2, x);
+
+        /* Draw the adjacent pixels */
+        if (lineWidth > 1) {
+            for (i = x - lineWidth / 2; i <= x + lineWidth / 2; i++) {
+                for (j = y - lineWidth / 2; j <= y + lineWidth / 2; j++) {
+
+                    /* Check if out-of-bound */
+                    if (i >= 0 && j >= 0 && i < bmpInfoHeader->height && j < bmpInfoHeader->width) {
+                        (*bmpPixelMatrix)[i][j] = *drawColor;
+                    }
+                }
+            }
+        } else {
+            (*bmpPixelMatrix)[x][y] = *drawColor;
+        }
+    }
+
+    return;
+}
+
+/* Function used to draw a line */
+void drawLine(bmp_infoheader *bmpInfoHeader, bmp_pixel ***bmpPixelMatrix, bmp_pixel *drawColor, int lineWidth, 
+        int x1, int y1, int x2, int y2) {
+    int i, j, k, y, x, aux;
+
+    /* Oy interval is greater */
+    if (max(abs(x2 - x1), abs(y2 - y1))) {
+
+        /* Swap if we don't start in the "top left" corner */
+        if (x1 > x2) {
+            aux = x1;
+            x1 = x2;
+            x2 = aux;
+
+            aux = y1;
+            y1 = y2;
+            y2 = aux;
+        }
+
+        drawY(bmpInfoHeader, bmpPixelMatrix, drawColor, lineWidth, x1, y1, x2, y2);
+        
+    /* Ox interval is greater */
+    } else {
+        drawX(bmpInfoHeader, bmpPixelMatrix, drawColor, lineWidth, x1, y1, x2, y2);   
+    }
+
+    /* Draw the initial first point */
+    x = x1;
+    y = y1;
+    for (i = x - (lineWidth / 2); i <= x + (lineWidth / 2); i++) {
+        for (j = y - (lineWidth / 2); j <= y + (lineWidth / 2); j++) {
+
+            /* Check if out-of-bound */
+            if (i >= 0 && j >= 0 && i < bmpInfoHeader->height && j < bmpInfoHeader->width) {
+                (*bmpPixelMatrix)[i][j] = *drawColor;
+            }
+        }
+    }
+
+    /* Draw the initial second point */
+    x = x2;
+    y = y2;
+    for (i = x - (lineWidth / 2); i <= x + (lineWidth / 2); i++) {
+        for (j = y - (lineWidth / 2); j <= y + (lineWidth / 2); j++) {
+
+            /* Check if out-of-bound */
+            if (i >= 0 && j >= 0 && i < bmpInfoHeader->height && j < bmpInfoHeader->width) {
+                (*bmpPixelMatrix)[i][j] = *drawColor;
+            }
+        }
+    }
+
+
+    return;
+}
+
 int main(int argc, char const *argv[]) {
     bmp_fileheader *bmpFileHeader = malloc(sizeof(bmp_fileheader));
     bmp_infoheader *bmpInfoHeader = malloc(sizeof(bmp_infoheader));
-    bmp_pixel **bmpPixelMatrix;
+    bmp_pixel **bmpPixelMatrix, *drawColor = calloc(1, sizeof(bmp_pixel));
     char *command = calloc(MAX_LENGTH, sizeof(char));
     char *path = calloc(MAX_LENGTH, sizeof(char));
-    unsigned int x, y, i;
+    int lineWidth = 1, x1, y1, x2, y2, x3, y3, height, width, R, G, B, i;
 
     /* Interactive console */
     scanf("%s", command);
@@ -122,22 +268,72 @@ int main(int argc, char const *argv[]) {
         /* Insert command */
         } else if (!strcmp(command, "insert")) {
             scanf("%s", path);
-            scanf("%u", &y);
-            scanf("%u", &x);
+            scanf("%u", &y1);
+            scanf("%u", &x1);
 
-            insert(&bmpFileHeader, &bmpInfoHeader, &bmpPixelMatrix, path, x, y);
+            insert(&bmpFileHeader, &bmpInfoHeader, &bmpPixelMatrix, path, x1, y1);
+        
+        /* Set command */
+        } else if (!strcmp(command, "set")) {
+            memset(command, '\0', MAX_LENGTH * sizeof(char));
+            scanf("%s", command);
+
+            /* Read the drawing color */
+            if (!strcmp(command, "draw_color")) {
+                scanf("%d %d %d", &R, &G, &B);
+
+                drawColor->R = R;
+                drawColor->G = G;
+                drawColor->B = B;
+
+            /* Read the drawing line width */
+            } else if(!strcmp(command, "line_width")) {
+                scanf("%d", &lineWidth);
+            }
+
+        /* Draw command */
+        } else if (!strcmp(command, "draw")) {
+            memset(command, '\0', MAX_LENGTH * sizeof(char));
+            scanf("%s", command);
+
+            /* Draw line */
+            if (!strcmp(command, "line")) {
+                scanf("%d %d %d %d", &y1, &x1, &y2, &x2);
+
+                drawLine(bmpInfoHeader, &bmpPixelMatrix, drawColor, lineWidth, x1, y1, x2, y2);
+
+            /* Draw rectangle */
+            } else if (!strcmp(command, "rectangle")) {
+                scanf("%d %d %d %d", &y1, &x1, &width, &height);
+                
+                drawLine(bmpInfoHeader, &bmpPixelMatrix, drawColor, lineWidth, x1, y1, x1 + height, y1);
+                drawLine(bmpInfoHeader, &bmpPixelMatrix, drawColor, lineWidth, x1, y1, x1, y1 + width);
+                drawLine(bmpInfoHeader, &bmpPixelMatrix, drawColor, lineWidth, x1 + height, y1, x1 + height, y1 + width);
+                drawLine(bmpInfoHeader, &bmpPixelMatrix, drawColor, lineWidth, x1, y1 + width, x1 + height, y1 + width);
+
+            /* Draw triangle */
+            } else if (!strcmp(command, "triangle")) {
+                scanf("%d %d %d %d %d %d", &y1, &x1, &y2, &x2, &y3, &x3);
+
+                drawLine(bmpInfoHeader, &bmpPixelMatrix, drawColor, lineWidth, x1, y1, x3, y3);
+                drawLine(bmpInfoHeader, &bmpPixelMatrix, drawColor, lineWidth, x3, y3, x2, y2);
+                drawLine(bmpInfoHeader, &bmpPixelMatrix, drawColor, lineWidth, x2, y2, x1, y1);
+            }
         }
 
-        memset(command, '0', MAX_LENGTH * sizeof(char));
-        memset(path, '0', MAX_LENGTH * sizeof(char));
+        memset(command, '\0', MAX_LENGTH * sizeof(char));
+        memset(path, '\0', MAX_LENGTH * sizeof(char));
         scanf("%s", command);
     }
 
     /* Free the memory */
-    for (i = 0; i < bmpInfoHeader->height; i++) {
-        free(bmpPixelMatrix[i]);
+    if (bmpPixelMatrix != NULL) {
+        for (i = 0; i < bmpInfoHeader->height; i++) {
+            free(bmpPixelMatrix[i]);
+        }
+        free(bmpPixelMatrix);
     }
-    free(bmpPixelMatrix);
+
     free(bmpInfoHeader);
     free(bmpFileHeader);
     free(command);
