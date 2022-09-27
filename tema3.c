@@ -102,12 +102,12 @@ int max (int x, int y) {
 
 /* Translation function that returns y */
 int translateLineY(int xA, int xB, int yA, int yB, int x) {
-    return (((yB - yA) * (x - xA)) / (xB - xA)) + yA;
+    return (yB - yA) * (x - xA) / (xB - xA) + yA;
 }
 
 /* Translation function that returns x */
 int translateLineX(int xA, int xB, int yA, int yB, int y) {
-    return (((y - yA) * (xB - xA)) / (yB - yA)) + xA;
+    return (y - yA) * (xB - xA) / (yB - yA) + xA;
 }
 
 /* Function used to draw when Oy interval is greater */
@@ -209,13 +209,32 @@ void drawLine(bmp_infoheader *bmpInfoHeader, bmp_pixel ***bmpPixelMatrix, bmp_pi
     return;
 }
 
+/* Function used to fill pixels */
+void fill(bmp_pixel ***bmpPixelMatrix, bmp_infoheader *bmpInfoHeader, int y, int x, bmp_pixel *drawColor, unsigned char R, unsigned char G, unsigned char B) {
+    if (x >= 0 && y >= 0 && x < bmpInfoHeader->height && y < bmpInfoHeader->width) {
+        
+        if ((*bmpPixelMatrix)[x][y].R == R && (*bmpPixelMatrix)[x][y].G == G && (*bmpPixelMatrix)[x][y].B == B) {
+
+            (*bmpPixelMatrix)[x][y] = *drawColor;
+        
+            fill(bmpPixelMatrix, bmpInfoHeader, y, x + 1, drawColor, R, G, B);
+            fill(bmpPixelMatrix, bmpInfoHeader, y + 1, x, drawColor, R, G, B);
+            fill(bmpPixelMatrix, bmpInfoHeader, y, x - 1, drawColor, R, G, B);
+            fill(bmpPixelMatrix, bmpInfoHeader, y - 1, x, drawColor, R, G, B);
+        }
+    
+    }
+
+    return;
+}
+
 int main(int argc, char const *argv[]) {
     bmp_fileheader *bmpFileHeader = malloc(sizeof(bmp_fileheader));
     bmp_infoheader *bmpInfoHeader = malloc(sizeof(bmp_infoheader));
     bmp_pixel **bmpPixelMatrix, *drawColor = calloc(1, sizeof(bmp_pixel));
     char *command = calloc(MAX_LENGTH, sizeof(char));
     char *path = calloc(MAX_LENGTH, sizeof(char));
-    int lineWidth = 1, x1, y1, x2, y2, x3, y3, height, width, R, G, B, i;
+    unsigned int lineWidth = 1, x1, y1, x2, y2, x3, y3, height, width, R, G, B, i;
 
     /* Interactive console */
     scanf("%s", command);
@@ -244,6 +263,12 @@ int main(int argc, char const *argv[]) {
             scanf("%u", &y1);
             scanf("%u", &x1);
 
+            /* Check if the image is loaded  */
+            if (bmpPixelMatrix == NULL) {
+                perror("Nothing is stored");
+                exit(-1);
+            }
+
             insert(&bmpFileHeader, &bmpInfoHeader, &bmpPixelMatrix, path, x1, y1);
         
         /* Set command */
@@ -269,6 +294,12 @@ int main(int argc, char const *argv[]) {
             memset(command, '\0', MAX_LENGTH * sizeof(char));
             scanf("%s", command);
 
+            /* Check if the image is loaded  */
+            if (bmpPixelMatrix == NULL) {
+                perror("Nothing is stored");
+                exit(-1);
+            }
+
             /* Draw line */
             if (!strcmp(command, "line")) {
                 scanf("%d %d %d %d", &y1, &x1, &y2, &x2);
@@ -291,7 +322,27 @@ int main(int argc, char const *argv[]) {
                 drawLine(bmpInfoHeader, &bmpPixelMatrix, drawColor, lineWidth, x1, y1, x3, y3);
                 drawLine(bmpInfoHeader, &bmpPixelMatrix, drawColor, lineWidth, x3, y3, x2, y2);
                 drawLine(bmpInfoHeader, &bmpPixelMatrix, drawColor, lineWidth, x2, y2, x1, y1);
+            } else {
+                printf("Command not found\n");
             }
+        
+        /* Fill command */
+        } else if (!strcmp(command, "fill")) {
+            scanf("%d %d", &y1, &x1);
+
+
+            if (bmpPixelMatrix == NULL) {
+                perror("Nothing is stored");
+                exit(-1);
+            }
+
+            R = bmpPixelMatrix[x1][y1].R;
+            G = bmpPixelMatrix[x1][y1].G;
+            B = bmpPixelMatrix[x1][y1].B;
+
+            fill(&bmpPixelMatrix, bmpInfoHeader, y1, x1, drawColor, R, G, B);
+        } else {
+            printf("Command not found\n");
         }
 
         memset(command, '\0', MAX_LENGTH * sizeof(char));
